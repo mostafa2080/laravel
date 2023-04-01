@@ -25,7 +25,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('posts.index') }}">Posts</a>
-                    
+
                 </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link bg-success" href="#">New Post</a>
@@ -39,18 +39,16 @@
         </div>
 
     </nav>
-
-
           <div class="container">
         @yield('content')
     </div>
     <footer class="text-muted">
-        <div class="container">
+        {{-- <div class="container">
             <p class="float-right">
                 <a href="#">Back to top</a>
             </p>
             <p>ITI Laravel Lab Project</p>
-        </div>
+        </div> --}}
     </footer>
 </body>
 

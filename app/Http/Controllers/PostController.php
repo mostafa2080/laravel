@@ -86,6 +86,11 @@ class PostController extends Controller
     }
 
 
+    public function update()
+    {
+        return redirect()->route('posts.index');
+    }
+
 
     public function destroy()
     {

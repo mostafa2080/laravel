@@ -8,6 +8,7 @@
     <a href="{{ route('posts.create') }}" class="btn btn btn-success">New Post</a>
   </div>
     <div class="table-responsive">
+        <caption>Posts</caption>
         <table
             class="table table-striped
         table-hover
@@ -15,7 +16,6 @@
         table-primary
         align-middle">
             <thead class="table-light">
-                <caption>Posts</caption>
                 <tr>
                     <th>ID</th>
                     <th>Title</th>
@@ -23,6 +23,9 @@
                     <th>Author</th>
                     <th>published_at</th>
                     <th>created_at</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
