@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="d-flex justify-content-center align-items-center m-4" >
-    <a class="btn btn btn-success">New Post</a>
+    <a href="{{ route('posts.create') }}" class="btn btn btn-success">New Post</a>
   </div>
     <div class="table-responsive">
         <table

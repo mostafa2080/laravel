@@ -19,6 +19,15 @@
             </div>
             <small class="form-text text-muted">Enter Post Description</small>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <select class="form-control" name="author" id="author">
+                <option value="mostafa">Mostafa</option>
+                <option value="youssef">Youssef</option>
+            </select>
+            <small class="form-text text-muted">Select Post Author</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 @endsection
