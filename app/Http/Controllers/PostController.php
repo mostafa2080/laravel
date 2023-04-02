@@ -2,98 +2,97 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
-use PHPUnit\TextUI\Configuration\Constant;
 
 class PostController extends Controller
 {
-    //action methods
     public function index()
     {
-        $posts = [
-            [
-                'id' => 1,
-                'title' => 'Post 1',
-                'description' => 'Post 1 description',
-                'author' => 'mostafa',
-                'published_at' => '2023-04-1',
-                'created_at' => '2023-04-1',
-            ],
-            [
-                'id' => 2,
-                'title' => 'Post 2',
-                'description' => 'Post 2 description',
-                'author' => 'youssef',
-                'published_at' => '2023-04-1',
-                'created_at' => '2023-04-1',
-            ],
-            [
-                'id' => 3,
-                'title' => 'Post 3',
-                'description' => 'Post 3 description',
-                'author' => 'osama',
-                'published_at' => '2023-04-1',
-                'created_at' => '2023-04-1',
-            ],
-            [
-                'id' => 4,
-                'title' => 'Post 4',
-                'description' => 'Post 4 description',
-                'author' => 'saber',
-                'published_at' => '2023-04-1',
-                'created_at' => '2023-04-1',
-            ],
-        ];
+        $posts = Post::paginate(10);
         return view('posts.index', ['posts' => $posts]);
+    }
+
+    public function show($id)
+    {
+        $post = Post::with('comments')->where('id', $id)->first();
+        return view('posts.show', ['post' => $post]);
     }
 
     public function create()
     {
-        return view('posts.create');
+        $users = User::all();
+        return view('posts.create', ['users' => $users]);
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return redirect()->route('posts.index');
+        $data = $request->all();
+        Post::create([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'user_id' => $data['user_id'],
+        ]);
+
+        return to_route('posts.index');
     }
 
-    public function show()
+    public function edit($id)
     {
-        $post = [
-            'id' => 1,
-            'title' => 'Post 1',
-            'description' => 'Post 1 description',
-            'author' => 'mostafa',
-            'published_at' => '2023-04-1',
-            'created_at' => '2023-04-1',
-        ];
 
-        return view('posts.show', ["post" => $post]);
+        $users = User::all();
+        $post = Post::find($id);
+        return view('posts.edit', ['post' => $post, 'users' => $users]);
     }
 
-    public function edit()
+    public function update(Request $request, $id)
     {
-        $post = [
-            'id' => 1,
-            'title' => 'Post 1',
-            'description' => 'Post 1 description',
-            'author' => 'mostafa',
-            'published_at' => '2023-04-1',
-            'created_at' => '2023-04-1',
-        ];
+        $post = Post::find($id);
+        if ($post) {
+            $post->title = $request->title;
+            $post->description = $request->description;
+            $post->user_id = $request->user_id;
+        }
+        $post->save();
 
-        return view('posts.edit', ["post" => $post]);
+        return to_route('posts.index');
+    }
+
+    // public function destroy($id)
+    // {
+    //     $post = Post::find($id);
+    //     if ($post) {
+    //         $post->delete();
+    //     }
+    //     return redirect()->route('posts.index');
+    // }
+
+    public function destroy($id){
+        $post = Post::where('id', $id)->first();
+        $post->delete();
+        // return redirect()->route('posts.index', $post['user_id'] );
+        return redirect()->route('posts.index', ['user_id' => $post->user_id]);
+
     }
 
 
-    public function update()
+    public function addComment($id, Request $request)
     {
-        return redirect()->route('posts.index');
+        $data = $request->all();
+        $post = Post::findOrFail($id);
+        $post->comments()->create([
+            'filename' => $data['filename']
+        ]);
+        return redirect()->back();
     }
 
 
-    public function destroy()
+    public function restore()
     {
-        return redirect()->route('posts.index');
+        Post::withTrashed()
+            ->restore();
+        return redirect()->back();
     }
 }

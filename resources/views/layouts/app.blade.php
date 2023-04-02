@@ -43,13 +43,13 @@
         @yield('content')
     </div>
     <footer class="text-muted">
-        {{-- <div class="container">
+        <div class="container">
             <p class="float-right">
                 <a href="#">Back to top</a>
             </p>
-            <p>ITI Laravel Lab Project</p>
-        </div> --}}
-    </footer>
+            <p>ITI Blog</p>
+        </div>
+    </footer> 
 </body>
 
 </html>
