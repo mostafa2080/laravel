@@ -18,6 +18,17 @@
         </div>
     </div>
 
+{{-- Comments --}}
+
+<form action="{{ route('comments.store', [$post->id]) }}" method="POST" class="mt-3">
+    @csrf
+    <div class="form-group">
+      <label for="comment">Comment:</label>
+      <textarea name="comment" id="comment" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Comment</button>
+  </form>
+
 
 
 

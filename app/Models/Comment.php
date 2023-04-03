@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    use HasFactory;
-    protected $fillable = ['filename'];
+    protected $fillable = ['comment'];
 
-    public function commentable()
-    {
-        return $this->morphTo();
+    public function commentable(){
+        return $this->morphTo(); ;
     }
 }

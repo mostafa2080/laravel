@@ -7,6 +7,11 @@
 <div class="d-flex justify-content-center align-items-center m-4" >
     <a href="{{ route('posts.create') }}" class="btn btn btn-success">New Post</a>
   </div>
+  <div class="d-flex justify-content-center align-items-center m-4">
+  <a href="{{ route('posts.restore') }}"
+  onclick="return confirm('{{ __('Are you sure you want to Restore All Posts?') }}')"
+  class="btn btn-danger form-control mt-5">Restore All Posts</a>
+</div>
     <div class="table-responsive">
         <caption>Posts</caption>
         <table
