@@ -25,8 +25,12 @@
             <div class="mb-3">
                 <label for="" class="form-label"></label>
                 <textarea class="form-control" name="description" id="" rows="5"></textarea>
+                <small class="form-text text-muted">Enter Post Description</small>
             </div>
-            <small class="form-text text-muted">Enter Post Description</small>
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Upload Image</label>
+            <input class="form-control form-control-lg" id="formFileLg" name="image" type="file">
         </div>
         <div class="mb-3">
             <label for="author" class="form-label">Author</label>
