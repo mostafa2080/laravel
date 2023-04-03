@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
@@ -21,7 +22,7 @@ class PostController extends Controller
         return view('posts.create', ['users' => $users]);
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         $data = $request->all();
         Post::create([
@@ -41,7 +42,7 @@ class PostController extends Controller
         return view('posts.edit', ['post' => $post, 'users' => $users]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
         $post = Post::find($id);
         if ($post) {
@@ -53,6 +54,7 @@ class PostController extends Controller
 
         return to_route('posts.index');
     }
+
 
     public function destroy($id){
         $post = Post::where('id', $id)->first();
@@ -89,3 +91,30 @@ class PostController extends Controller
         return redirect()->back();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
