@@ -19,7 +19,7 @@ class CommentController extends Controller
     }
     public function destroy($id){
         $comment = Comment::where('id', $id)->first();
-        dd($id);
+        // dd($id);
         $comment->delete();
         return redirect()->back();
     }

@@ -29,6 +29,25 @@
     <button type="submit" class="btn btn-primary">Save Comment</button>
   </form>
 
+  {{-- <div>
+    <h3>Comments</h3>
+    @foreach($comments as $comment)
+      <p>{{ $comment->comment }}</p>
+    @endforeach
+  </div> --}}
+
+  @foreach($comments as $comment)
+  <div class="card mt-4 mb-3">
+    <div class="card-body">
+      <p class="card-text">{{ $comment->comment }}</p>
+      <form action="{{ route('comments.destroy', [$comment->id]) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </div>
+  </div>
+@endforeach
 
 
 

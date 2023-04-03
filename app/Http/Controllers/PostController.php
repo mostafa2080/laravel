@@ -15,12 +15,6 @@ class PostController extends Controller
         return view('posts.index', ['posts' => $posts]);
     }
 
-    public function show($id)
-    {
-        $post = Post::with('comments')->where('id', $id)->first();
-        return view('posts.show', ['post' => $post]);
-    }
-
     public function create()
     {
         $users = User::all();
@@ -60,15 +54,6 @@ class PostController extends Controller
         return to_route('posts.index');
     }
 
-    // public function destroy($id)
-    // {
-    //     $post = Post::find($id);
-    //     if ($post) {
-    //         $post->delete();
-    //     }
-    //     return redirect()->route('posts.index');
-    // }
-
     public function destroy($id){
         $post = Post::where('id', $id)->first();
         $post->delete();
@@ -77,17 +62,25 @@ class PostController extends Controller
 
     }
 
-
     public function addComment($id, Request $request)
     {
         $data = $request->all();
         $post = Post::findOrFail($id);
-        $post->comments()->create([
-            'filename' => $data['filename']
+        $comment = $post->comments()->create([
+            'comment' => $data['comment']
         ]);
-        return redirect()->back();
+        $comments = Comment::where('commentable_id', $id)->get();
+        return view('posts.show', compact('post', 'comments'));
+        // return view('posts.show', ['comments' => $comments]);
     }
 
+    public function show($id)
+{
+    $post = Post::findOrFail($id);
+    $comments = Comment::where('commentable_id', $id)->get();
+
+    return view('posts.show', compact('post', 'comments'));
+}
 
     public function restore()
     {
