@@ -27,6 +27,7 @@
                     <th>Description</th>
                     <th>Author</th>
                     {{-- <th>published_at</th> --}}
+                    <th>Slug</th>
                     <th>created_at</th>
                     <th></th>
                     <th></th>
@@ -40,6 +41,7 @@
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->description}}</td>
                         <td>{{ $post->user->name }}</td>
+                        <td>{{ $post->slug}}</td>
                         {{-- <td>{{ $post->published_at  }}</td> --}}
                         <td>{{ $post->created_at->diffForHumans()  }}</td>
                         <td><a href="{{ route('posts.show', $post['id']) }}" class="btn btn-success">View</a></td>
