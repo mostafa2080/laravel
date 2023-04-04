@@ -45,7 +45,7 @@
     </div>
 @endforeach
 
-
+{{-- Script Implemenatation  --}}
     {{-- @foreach($comments as $comment)
 
     <div class="card mt-4 mb-3">
@@ -78,8 +78,8 @@
 
     @endforeach --}}
 
-
-    {{-- @foreach($comments as $comment)
+{{--
+    @foreach($comments as $comment)
     <div class="card mt-4 mb-3">
         <div class="card-body">
         <p class="card-text">{{ $comment->comment }} <span class="small text-muted">{{ $comment->created_at->diffForHumans() }}</span></p>
