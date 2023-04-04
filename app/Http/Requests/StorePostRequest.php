@@ -39,7 +39,7 @@ class StorePostRequest extends FormRequest
             'description' => [
                 'required' => 'Description is Required',
                 'min' => 'Description must be larger than 10 Characters'
-            ],
+            ],  
         ];
     }
 

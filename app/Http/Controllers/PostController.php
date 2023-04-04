@@ -24,13 +24,21 @@ class PostController extends Controller
 
     public function store(StorePostRequest $request)
     {
-        $data = $request->all();
-        Post::create([
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'user_id' => $data['user_id'],
-        ]);
+        // $data = $request->all();
+        $validatedData = $request->validated();
+        $path = null;
+        if ($request->hasFile('image')) {
+            $filename = $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('public/images', $filename);
+        }
 
+        Post::create([
+            'title' => $validatedData['title'],
+            'description' => $validatedData['description'],
+            'user_id' => $validatedData['user_id'],
+            'image' => $path
+        ]); 
+        // return redirect()->route('posts.index');
         return to_route('posts.index');
     }
 
