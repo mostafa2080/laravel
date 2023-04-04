@@ -37,7 +37,8 @@ class PostController extends Controller
             'description' => $validatedData['description'],
             'user_id' => $validatedData['user_id'],
             'image' => $path
-        ]); 
+
+        ]);
         // return redirect()->route('posts.index');
         return to_route('posts.index');
     }
