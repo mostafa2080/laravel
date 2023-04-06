@@ -28,8 +28,9 @@ class PostController extends Controller
         $validatedData = $request->validated();
         $path = null;
         if ($request->hasFile('image')) {
-            $filename = $request->file('image')->getClientOriginalName();
-            $path = $request->file('image')->storeAs('public/images', $filename);
+            // $filename = $request->file('image')->getClientOriginalName();
+            // $path = $request->file('image')->storeAs('public/images', $filename);
+            $path = $request->file('image')->store('images',['disk' => "public"]);
         }
 
         Post::create([
@@ -40,8 +41,9 @@ class PostController extends Controller
 
         ]);
         // return redirect()->route('posts.index');
-        return to_route('posts.index');
+        return to_route('posts.index')->with('success', 'posts added successfully!');
     }
+
 
     public function edit($id)
     {
@@ -63,6 +65,9 @@ class PostController extends Controller
 
         return to_route('posts.index');
     }
+
+
+
 
 
     public function destroy($id){

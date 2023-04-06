@@ -4,7 +4,7 @@ namespace App\Rules;
 use App\Models\Post;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
-
+    
 class MaxPosts implements ValidationRule
 {
     /**
