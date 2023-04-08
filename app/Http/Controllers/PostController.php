@@ -7,6 +7,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Jobs\PruneOldPostsJob;
 
 class PostController extends Controller
 {
@@ -104,6 +105,13 @@ class PostController extends Controller
             ->restore();
         return redirect()->back();
     }
+
+    public function removePosts()
+    {
+      PruneOldPostsJob::dispatch();
+    }
+
+
 }
 
 
