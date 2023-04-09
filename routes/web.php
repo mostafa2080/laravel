@@ -1,9 +1,8 @@
 <?php
-use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
-use Illuminate\Http\Resources\Json\ResourceResponse;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +43,77 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+use Laravel\Socialite\Facades\Socialite;
+
+Route::get('github/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('login.github');
+
+Route::get('github/auth/callback', function () {
+    $githubUser = Socialite::driver('github')->user();
+    $user = User::updateOrCreate([
+        'github_id' => $githubUser->id,
+    ], [
+        'name' => $githubUser->name,
+        'email' => $githubUser->email,
+    ]);
+
+    Auth::login($user);
+
+    return redirect('/');
+});
+
+
+    Route::get('google/auth/redirect', function () {
+        return Socialite::driver('google')->redirect();
+    })->name('login.google');
+
+    Route::get('google/auth/callback', function () {
+        $googleUser = Socialite::driver('google')->user();
+        $user = User::updateOrCreate([
+            'email' => $googleUser->email,
+        ], [
+            'name' => $googleUser->name,
+            'email' => $googleUser->email,
+        ]);
+
+        Auth::login($user);
+
+        return redirect('/');
+    });
+
+
+
+
+
+
+    Auth::routes();
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// use Laravel\Socialite\Facades\Socialite;
+
+// Route::get('/auth/redirect', function () {
+//     return Socialite::driver('github')->redirect();
+// });
+
+// Route::get('/auth/callback', function () {
+//     $user = Socialite::driver('github')->user();
+
+//     // $user->token
+// });
